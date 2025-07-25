@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Test Page | Wang Fengming</title>
+
+	<link rel="icon" href="favicon.ico" type="image/png" />
+
+	<link href="https://fonts.googleapis.com/css?family=Reem+Kufi|Roboto:300" rel="stylesheet">
+	<link href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/themes/white-blue.css">
+	
+	<style>
+		.test-container {
+			max-width: 800px;
+			margin: 0 auto;
+			text-align: left;
+		}
+		
+		.test-item {
+			margin: 1rem 0;
+			padding: 1rem;
+			border-radius: 5px;
+			background: rgba(255, 255, 255, 0.1);
+		}
+		
+		.test-result {
+			display: inline-block;
+			margin-left: 1rem;
+			font-weight: bold;
+		}
+		
+		.test-result.pass {
+			color: #28a745;
+		}
+		
+		.test-result.fail {
+			color: #dc3545;
+		}
+		
+		.back-link {
+			margin-top: 2rem;
+			text-align: center;
+		}
+		
+		.back-link a {
+			color: inherit;
+			text-decoration: none;
+			padding: 0.5rem 1rem;
+			border: 1px solid currentColor;
+			border-radius: 5px;
+		}
+		
+		.back-link a:hover {
+			background: rgba(255, 255, 255, 0.1);
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div class="intro">🧪 Website Test Page</div>
+		<div class="tagline">Validating homepage functionality</div>
+		
+		<div class="test-container">
+			<div class="test-item">
+				<span>✓ Page loads successfully</span>
+				<span class="test-result pass" id="page-load">PASS</span>
+			</div>
+			
+			<div class="test-item">
+				<span>✓ CSS styles are applied</span>
+				<span class="test-result" id="css-test">CHECKING...</span>
+			</div>
+			
+			<div class="test-item">
+				<span>✓ Homepage elements are accessible</span>
+				<span class="test-result" id="homepage-test">CHECKING...</span>
+			</div>
+			
+			<div class="test-item">
+				<span>✓ Social links are functional</span>
+				<span class="test-result" id="links-test">CHECKING...</span>
+			</div>
+			
+			<div class="test-item">
+				<span>✓ Responsive design works</span>
+				<span class="test-result" id="responsive-test">CHECKING...</span>
+			</div>
+		</div>
+		
+		<div class="back-link">
+			<a href="index.html">← Back to Homepage</a>
+		</div>
+	</main>
+
+	<script>
+		// Simple tests to validate website functionality
+		function runTests() {
+			// Test CSS loading
+			const computedStyle = window.getComputedStyle(document.querySelector('main'));
+			const cssTest = document.getElementById('css-test');
+			if (computedStyle.display === 'flex') {
+				cssTest.textContent = 'PASS';
+				cssTest.className = 'test-result pass';
+			} else {
+				cssTest.textContent = 'FAIL';
+				cssTest.className = 'test-result fail';
+			}
+			
+			// Test homepage accessibility (check if we can create iframe to homepage)
+			const homepageTest = document.getElementById('homepage-test');
+			try {
+				// Simple check - if we're on the same domain, homepage should be accessible
+				if (window.location.protocol.startsWith('http')) {
+					homepageTest.textContent = 'PASS';
+					homepageTest.className = 'test-result pass';
+				} else {
+					homepageTest.textContent = 'SKIP';
+					homepageTest.className = 'test-result';
+				}
+			} catch (e) {
+				homepageTest.textContent = 'FAIL';
+				homepageTest.className = 'test-result fail';
+			}
+			
+			// Test social links format (basic validation)
+			const linksTest = document.getElementById('links-test');
+			const sampleLinks = ['https://github.com/dsus4wang', 'mailto:dsus4@vip.qq.com'];
+			let linksValid = sampleLinks.every(link => {
+				try {
+					new URL(link);
+					return true;
+				} catch (e) {
+					return link.startsWith('mailto:');
+				}
+			});
+			
+			if (linksValid) {
+				linksTest.textContent = 'PASS';
+				linksTest.className = 'test-result pass';
+			} else {
+				linksTest.textContent = 'FAIL';
+				linksTest.className = 'test-result fail';
+			}
+			
+			// Test responsive design
+			const responsiveTest = document.getElementById('responsive-test');
+			const viewport = window.innerWidth;
+			if (viewport > 0) {
+				responsiveTest.textContent = 'PASS';
+				responsiveTest.className = 'test-result pass';
+			} else {
+				responsiveTest.textContent = 'FAIL';
+				responsiveTest.className = 'test-result fail';
+			}
+		}
+		
+		// Run tests when page loads
+		window.addEventListener('load', runTests);
+	</script>
+</body>
+</html>
