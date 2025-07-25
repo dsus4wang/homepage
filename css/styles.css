@@ -34,6 +34,95 @@ html {
 
 /* Custom Styles */
 
+/* Beautiful cursor effects */
+* {
+	cursor: none;
+}
+
+.cursor {
+	position: fixed;
+	width: 20px;
+	height: 20px;
+	background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+	border-radius: 50%;
+	pointer-events: none;
+	z-index: 9999;
+	transition: all 0.1s ease;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.cursor-trail {
+	position: fixed;
+	width: 6px;
+	height: 6px;
+	background: rgba(255, 107, 107, 0.6);
+	border-radius: 50%;
+	pointer-events: none;
+	z-index: 9998;
+	transition: all 0.2s ease;
+	transform: translate(-50%, -50%);
+}
+
+/* Animated background */
+body {
+	position: relative;
+	overflow-x: hidden;
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradientShift 15s ease infinite;
+	z-index: -2;
+}
+
+@keyframes gradientShift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Floating particles */
+.particle {
+	position: fixed;
+	pointer-events: none;
+	z-index: -1;
+}
+
+.particle::before {
+	content: '';
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	background: rgba(255, 255, 255, 0.4);
+	border-radius: 50%;
+	animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1)::before { animation-delay: 0s; }
+.particle:nth-child(2)::before { animation-delay: 1s; }
+.particle:nth-child(3)::before { animation-delay: 2s; }
+.particle:nth-child(4)::before { animation-delay: 3s; }
+.particle:nth-child(5)::before { animation-delay: 4s; }
+
+@keyframes float {
+	0%, 100% { transform: translateY(0px) rotate(0deg); }
+	50% { transform: translateY(-20px) rotate(180deg); }
+}
+
 main {
 	display: flex;
 	flex-direction: column;
@@ -41,6 +130,8 @@ main {
 	justify-content: center;
 	padding: 0 30px;
 	text-align: center;
+	position: relative;
+	z-index: 1;
 }
 
 main > .intro {
