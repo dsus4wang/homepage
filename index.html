@@ -26,7 +26,7 @@
 <body>
 	<main>
 		<div class="intro">👋Hello, I'm Wang Fengming!</div>
-		<div class="tagline">Developer | Graduate Student | Cat Owner</div>
+		<div class="tagline">Software Engineer | Cat Owner</div>
 		<!-- Find your icons from here - https://fontawesome.com/icons?d=gallery&s=brands -->
 		<div class="icons-social">
 			<a target="_blank" href="https://github.com/dsus4wang">
@@ -47,5 +47,63 @@
       </a>
     </div>
 	</main>
+
+	<!-- Custom cursor elements -->
+	<div class="cursor"></div>
+	<div class="cursor-trail"></div>
+
+	<!-- Floating particles -->
+	<div class="particle" style="top: 10%; left: 10%;"></div>
+	<div class="particle" style="top: 20%; left: 80%;"></div>
+	<div class="particle" style="top: 60%; left: 20%;"></div>
+	<div class="particle" style="top: 80%; left: 70%;"></div>
+	<div class="particle" style="top: 40%; left: 90%;"></div>
+
+	<script>
+		// Custom cursor effect
+		const cursor = document.querySelector('.cursor');
+		const cursorTrail = document.querySelector('.cursor-trail');
+		
+		document.addEventListener('mousemove', (e) => {
+			cursor.style.left = e.clientX + 'px';
+			cursor.style.top = e.clientY + 'px';
+			
+			setTimeout(() => {
+				cursorTrail.style.left = e.clientX + 'px';
+				cursorTrail.style.top = e.clientY + 'px';
+			}, 50);
+		});
+
+		// Hover effects for interactive elements
+		const interactiveElements = document.querySelectorAll('a, button');
+		interactiveElements.forEach(el => {
+			el.addEventListener('mouseenter', () => {
+				cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+				cursor.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4)';
+			});
+			
+			el.addEventListener('mouseleave', () => {
+				cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+				cursor.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4)';
+			});
+		});
+
+		// Add more dynamic particles
+		function createParticle() {
+			const particle = document.createElement('div');
+			particle.className = 'particle';
+			particle.style.left = Math.random() * 100 + '%';
+			particle.style.top = Math.random() * 100 + '%';
+			particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+			document.body.appendChild(particle);
+			
+			setTimeout(() => {
+				particle.remove();
+			}, 8000);
+		}
+
+		// Create particles periodically
+		setInterval(createParticle, 2000);
+	</script>
 </body>
 </html>
